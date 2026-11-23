@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HellasPath — Greek Immigration Advisory, Case Evaluation &amp; Intake</title>
+  <style>
+    :root {
+      --bg: #0b0f16;
+      --surface: #131a25;
+      --surface-alt: #1a2332;
+      --paper: #f7f3eb;
+      --ink: #f5f2eb;
+      --ink-muted: #a9b4c6;
+      --gold: #d4af6a;
+      --gold-bright: #e5c585;
+      --gold-soft: rgba(212, 175, 106, 0.13);
+      --border: rgba(212, 175, 106, 0.24);
+      --border-subtle: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(212, 175, 106, 0.09), transparent 45%),
+        linear-gradient(180deg, #080b10 0%, var(--bg) 50%, #0e141e 100%);
+      color: var(--ink);
+      line-height: 1.6;
+      padding: 18px 14px 60px;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Navigation & Language Switcher */
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 4px 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .nav-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+    }
+
+    .nav-links a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--ink-muted);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--gold);
+      color: #11151d;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(155deg, rgba(25, 35, 50, 0.97), rgba(14, 20, 30, 0.99));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 32px 24px;
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.45);
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(26px, 5vw, 40px);
+      line-height: 1.18;
+      font-weight: 600;
+    }
+
+    .hero-sub {
+      margin: 0 0 22px;
+      color: var(--ink-muted);
+      font-size: 15.5px;
+      max-width: 65ch;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .pill {
+      background: var(--gold-soft);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      color: var(--ink);
+    }
+
+    /* Sections & Cards */
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 26px 20px;
+      margin-bottom: 22px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+    }
+
+    .kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    h2 {
+      margin: 0 0 6px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .section-desc {
+      margin: 0 0 18px;
+      color: var(--ink-muted);
+      font-size: 14px;
+    }
+
+    /* Permits Directory Grid */
+    .permits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .permit-item {
+      background: var(--surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.16s ease, transform 0.16s ease;
+    }
+
+    .permit-item:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .permit-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin: 0 0 6px;
+    }
+
+    .permit-text {
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      margin: 0 0 14px;
+    }
+
+    .permit-action {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--gold);
+      border-radius: 9px;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+
+    .permit-action:hover {
+      background: var(--gold);
+      color: #11151d;
+    }
+
+    /* Pricing / Consultation Tiers */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .price-card {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .price-badge {
+      display: inline-block;
+      background: var(--gold-soft);
+      color: var(--gold);
+      border: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .price-amount {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 4px 0 8px;
+    }
+
+    .price-amount span {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-muted);
+    }
+
+    .price-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      font-size: 13.5px;
+      color: var(--ink-muted);
+    }
+
+    .price-list li {
+      margin-bottom: 6px;
+    }
+
+    /* Immigration Advisor */
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .chip {
+      background: #0e141e;
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .chip:hover {
+      background: var(--gold-soft);
+      border-color: var(--gold);
+      color: var(--gold-bright);
+    }
+
+    .chat-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      padding-right: 4px;
+    }
+
+    .msg {
+      border-radius: 13px;
+      padding: 13px 15px;
+      font-size: 14px;
+    }
+
+    .msg-bot {
+      background: var(--surface-alt);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .msg-user {
+      background: var(--gold-soft);
+      border: 1px solid var(--border);
+      align-self: flex-end;
+      max-width: 88%;
+    }
+
+    .msg-sender {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chat-input-row input {
+      flex: 1 1 230px;
+    }
+
+    /* Interactive Intake Agent */
+    .progress-bar-wrap {
+      margin-bottom: 18px;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: #0b0f16;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+      width: 16%;
+      transition: width 0.25s ease;
+    }
+
+    .question-banner {
+      background: var(--surface-alt);
+      border-left: 3px solid var(--gold);
+      border-radius: 12px;
+      padding: 15px 16px;
+      margin-bottom: 14px;
+    }
+
+    .question-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      background: #0e141e;
+      color: var(--ink);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 13px 15px;
+      font-size: 14.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .opt-btn:hover,
+    .opt-btn.selected {
+      border-color: var(--gold);
+      background: var(--gold-soft);
+      color: var(--gold-bright);
+    }
+
+    .panel-box {
+      background: var(--surface-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-muted);
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    select {
+      width: 100%;
+      background: #0c111a;
+      color: var(--ink);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 11px 13px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .eval-list {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 14px;
+    }
+
+    .eval-list li {
+      margin-bottom: 7px;
+    }
+
+    .dossier-paper {
+      background: var(--paper);
+      color: #161c26;
+      border-radius: 14px;
+      padding: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12.5px;
+      white-space: pre-wrap;
+      margin-bottom: 16px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 13px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #11151d;
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-bright);
+    }
+
+    .btn-dark {
+      background: var(--surface-alt);
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+
+    .btn-dark:hover {
+      border-color: var(--gold);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink-muted);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 8px 13px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-ghost:hover {
+      color: var(--ink);
+      border-color: var(--gold);
+    }
+
+    .stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .row-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .note-small {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      margin-top: 24px;
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="brand">HellasPath</div>
+      <div class="nav-group">
+        <nav class="nav-links">
+          <a href="#permits" data-i18n="navPermits">Permits &amp; Visas</a>
+          <a href="#ai-advisor" data-i18n="navAdvisor">Immigration Q&amp;A</a>
+          <a href="#intake" data-i18n="navIntake">Case Intake</a>
+          <a href="#fees" data-i18n="navFees">Consultations</a>
+        </nav>
+        <div class="lang-toggle" role="group" aria-label="Language switcher">
+          <button type="button" class="lang-btn active" id="btnEn">EN</button>
+          <button type="button" class="lang-btn" id="btnEl">ΕΛ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <header class="hero">
+      <div class="eyebrow" data-i18n="heroEyebrow">Greek Immigration Advisory &amp; Private Intake Desk</div>
+      <h1 data-i18n="heroTitle">Clarity, Case Evaluation &amp; Strategy for Living in Greece</h1>
+      <p class="hero-sub" data-i18n="heroSub">
+        Explore Greek residence permits and visas, ask questions about Greek immigration rules, and complete a structured case review to message us on WhatsApp or Email or schedule an online session.
+      </p>
+      <div class="hero-cta-row">
+        <a class="btn btn-gold" href="#intake" data-i18n="ctaIntake">Start Case Evaluation</a>
+        <a class="btn btn-dark" href="#ai-advisor" data-i18n="ctaBot">Ask Immigration Questions</a>
+      </div>
+      <div class="meta-pills">
+        <span class="pill" data-i18n="pill1">Full Greek Immigration Coverage</span>
+        <span class="pill">WhatsApp: +30 694 074 3407</span>
+        <span class="pill">Email: Irinimoney@gmail.com</span>
+      </div>
+    </header>
+
+    <!-- 1. Full Permits & Visas Overview -->
+    <section class="section-card" id="permits">
+      <div class="kicker" data-i18n="permitsKicker">Comprehensive Coverage</div>
+      <h2 data-i18n="permitsTitle">Greek Residence Permits &amp; Visa Pathways</h2>
+      <p class="section-desc" data-i18n="permitsDesc">
+        Select any permit category below to jump straight into a tailored case intake and document checklist.
+      </p>
+      <div class="permits-grid" id="permitsGrid"></div>
+    </section>
+
+    <!-- 2. Consultation Tiers (Informational Pricing Only) -->
+    <section class="section-card" id="fees">
+      <div class="kicker" data-i18n="feesKicker">Private Advisory Services</div>
+      <h2 data-i18n="feesTitle">Consultation &amp; Case Evaluation Rates</h2>
+      <p class="section-desc" data-i18n="feesDesc">
+        Transparent consultation pricing below. Complete your case intake first and send your summary via WhatsApp or Email to coordinate next steps.
+      </p>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <span class="price-badge" data-i18n="tier1Badge">Option 1 • Written Review &amp; Roadmap</span>
+          <div class="price-amount">€55 <span data-i18n="tier1Unit">/ full file review</span></div>
+          <p class="section-desc" style="margin-bottom: 8px;" data-i18n="tier1Desc">
+            Ideal if you want a written case evaluation, eligibility check, and custom document roadmap before applying.
+          </p>
+          <ul class="price-list">
+            <li data-i18n="tier1Li1">Detailed eligibility &amp; timeline verification</li>
+            <li data-i18n="tier1Li2">Custom document &amp; translation roadmap</li>
+            <li data-i18n="tier1Li3">Delivered via WhatsApp or Email within 24–48h</li>
+          </ul>
+        </div>
+
+        <div class="price-card">
+          <span class="price-badge" data-i18n="tier2Badge">Option 2 • Private 1-on-1 Session</span>
+          <div class="price-amount">€85 <span data-i18n="tier2Unit">/ 45-min online call</span></div>
+          <p class="section-desc" style="margin-bottom: 8px;" data-i18n="tier2Desc">
+            Private 45-minute online strategy session via Google Meet or WhatsApp Call for complex cases, renewals, or family moves.
+          </p>
+          <ul class="price-list">
+            <li data-i18n="tier2Li1">45-minute private consultation with Irini</li>
+            <li data-i18n="tier2Li2">Step-by-step filing &amp; appointment roadmap</li>
+            <li data-i18n="tier2Li3">Includes written post-call summary &amp; checklist</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Built-In Greek Immigration Q&A Engine -->
+    <section class="section-card" id="ai-advisor">
+      <div class="kicker" data-i18n="botKicker">Built-In Greek Immigration Knowledge Base</div>
+      <h2 data-i18n="botTitle">Ask Greek Immigration Questions</h2>
+      <p class="section-desc" data-i18n="botDesc">
+        Type any question in English or Greek about visas, residence permits, renewals, blue certificates, family cases, students, work, or Golden Visa—or tap a topic below.
+      </p>
+
+      <div class="chips-wrap" id="botChips"></div>
+
+      <div class="chat-box" id="chatBox"></div>
+
+      <form class="chat-input-row" id="chatForm">
+        <input type="text" id="chatInput" placeholder="Ask any Greek immigration question..." autocomplete="off" />
+        <button type="submit" class="btn btn-gold" data-i18n="botAskBtn">Ask</button>
+      </form>
+
+      <p class="note-small" data-i18n="botDisclaimer">
+        Built-in informational guide covering Greek immigration topics. For a personal case evaluation or live session, complete your Case Intake below and send your summary via WhatsApp or Email.
+      </p>
+    </section>
+
+    <!-- 4. Interactive Case Intake, Evaluation & Appointment Booking -->
+    <section class="section-card" id="intake">
+      <div class="kicker" data-i18n="intakeKicker">Guided Triage &amp; Booking</div>
+      <h2 data-i18n="intakeTitle">Case Intake, Evaluation &amp; Online Appointment</h2>
+      <p class="section-desc" data-i18n="intakeDesc">
+        Answer 6 quick multiple-choice questions to generate your tailored case evaluation, send it to WhatsApp or Email, and book an online slot.
+      </p>
+
+      <div id="intakeQuestionsView">
+        <div class="progress-bar-wrap">
+          <div class="progress-top">
+            <span id="stepText">Question 1 of 6</span>
+            <span id="pctText">17%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressBar"></div>
+          </div>
+        </div>
+
+        <div class="question-banner">
+          <div class="kicker" data-i18n="intakePromptTag">Step-by-Step Assessment</div>
+          <p class="question-title" id="questionTitle"></p>
+        </div>
+
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <div class="row-between">
+          <button type="button" class="btn-ghost" id="prevBtn" data-i18n="btnPrev">← Previous</button>
+          <button type="button" class="btn-ghost" id="resetBtn" data-i18n="btnReset">Reset</button>
+        </div>
+      </div>
+
+      <div id="intakeResultView" class="hidden">
+        <div class="panel-box">
+          <div class="kicker" data-i18n="clientDetailsTitle">Your Contact &amp; Profile Details</div>
+          <div class="two-col">
+            <div class="field">
+              <label for="cName" data-i18n="lblName">Full Name</label>
+              <input type="text" id="cName" placeholder="e.g., Maria Papadopoulou" />
+            </div>
+            <div class="field">
+              <label for="cContact" data-i18n="lblContact">Your WhatsApp or Email</label>
+              <input type="text" id="cContact" placeholder="+30 ... or you@example.com" />
+            </div>
+          </div>
+          <div class="two-col">
+            <div class="field">
+              <label for="cNat" data-i18n="lblNat">Nationality &amp; Current Country</label>
+              <input type="text" id="cNat" placeholder="e.g., Albanian / living in Athens" />
+            </div>
+            <div class="field">
+              <label for="cNotes" data-i18n="lblNotes">Extra Case Notes (Optional)</label>
+              <input type="text" id="cNotes" placeholder="Expiry dates, university, sponsor, or questions" />
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="kicker" data-i18n="evalHeading">Preliminary Case Evaluation &amp; Document Focus</div>
+          <ul class="eval-list" id="evalList"></ul>
+        </div>
+
+        <div class="kicker" data-i18n="dossierHeading">Ready-to-Send Case Summary</div>
+        <div class="dossier-paper" id="dossierPaper"></div>
+
+        <div class="stack">
+          <a class="btn btn-gold" id="waSendBtn" href="#" target="_blank" rel="noopener noreferrer" data-i18n="btnWhatsApp">
+            Send Case Evaluation via WhatsApp (+30 694 074 3407)
+          </a>
+          <a class="btn btn-dark" id="mailSendBtn" href="#" data-i18n="btnEmail">
+            Send Case Evaluation via Email (Irinimoney@gmail.com)
+          </a>
+          <button type="button" class="btn btn-dark" id="toggleCalBtn" data-i18n="btnSchedule">
+            Book Online Appointment on Google Calendar
+          </button>
+        </div>
+
+        <div id="calBox" class="panel-box hidden" style="margin-top: 14px;">
+          <div class="kicker" data-i18n="calHeading">Select Preferred Online Slot</div>
+          <div class="two-col">
+            <div class="field">
+              <label for="calDate" data-i18n="lblDate">Preferred Date</label>
+              <input type="date" id="calDate" />
+            </div>
+            <div class="field">
+              <label for="calTime" data-i18n="lblTime">Preferred Time (Greece / EET)</label>
+              <input type="time" id="calTime" value="11:00" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="calChannel" data-i18n="lblFormat">Consultation Format</label>
+            <select id="calChannel">
+              <option value="Google Meet (Online)">Google Meet (Online)</option>
+              <option value="WhatsApp Video / Voice (+30 694 074 3407)">WhatsApp Call (+30 694 074 3407)</option>
+            </select>
+          </div>
+          <a class="btn btn-gold" id="gcalOpenBtn" href="#" target="_blank" rel="noopener noreferrer" style="width: 100%; margin-top: 8px;" data-i18n="btnConfirmCal">
+            Confirm &amp; Open Google Calendar Invite
+          </a>
+        </div>
+
+        <div class="row-between" style="margin-top: 16px;">
+          <button type="button" class="btn-ghost" id="backToEditBtn" data-i18n="btnEdit">← Edit Choices</button>
+          <button type="button" class="btn-ghost" id="newCaseBtn" data-i18n="btnNewCase">Start New Case</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      HellasPath &bull; Greek Immigration Advisory &amp; Online Desk &bull;
+      <a href="https://wa.me/306940743407" target="_blank" rel="noopener noreferrer">+30 694 074 3407</a> &bull;
+      <a href="mailto:Irinimoney@gmail.com">Irinimoney@gmail.com</a>
+    </footer>
+  </div>
+
+  <script>
+    const CONSULTANT_PHONE = "+30 694 074 3407";
+    const WHATSAPP_NUMBER = "306940743407";
+    const CONSULTANT_EMAIL = "Irinimoney@gmail.com";
+
+    let currentLang = "en";
+    let step = 0;
+    const answers = {};
+
+    const i18n = {
+      en: {
+        navPermits: "Permits & Visas",
+        navAdvisor: "Immigration Q&A",
+        navIntake: "Case Intake",
+        navFees: "Consultations",
+        heroEyebrow: "Greek Immigration Advisory & Private Intake Desk",
+        heroTitle: "Clarity, Case Evaluation & Strategy for Living in Greece",
+        heroSub: "Explore Greek residence permits and visas, ask questions about Greek immigration rules, and complete a structured case review to message us on WhatsApp or Email or schedule an online session.",
+        ctaIntake: "Start Case Evaluation",
+        ctaBot: "Ask Immigration Questions",
+        pill1: "Full Greek Immigration Coverage",
+        permitsKicker: "Comprehensive Coverage",
+        permitsTitle: "Greek Residence Permits & Visa Pathways",
+        permitsDesc: "Select any permit category below to jump straight into a tailored case intake and document checklist.",
+        feesKicker: "Private Advisory Services",
+        feesTitle: "Consultation & Case Evaluation Rates",
+        feesDesc: "Transparent consultation pricing below. Complete your case intake first and send your summary via WhatsApp or Email to coordinate next steps.",
+        tier1Badge: "Option 1 • Written Review & Roadmap",
+        tier1Unit: "/ full file review",
+        tier1Desc: "Ideal if you want a written case evaluation, eligibility check, and custom document roadmap before applying.",
+        tier1Li1: "Detailed eligibility & timeline verification",
+        tier1Li2: "Custom document & translation roadmap",
+        tier1Li3: "Delivered via WhatsApp or Email within 24–48h",
+        tier2Badge: "Option 2 • Private 1-on-1 Session",
+        tier2Unit: "/ 45-min online call",
+        tier2Desc: "Private 45-minute online strategy session via Google Meet or WhatsApp Call for complex cases, renewals, or family moves.",
+        tier2Li1: "45-minute private consultation with Irini",
+        tier2Li2: "Step-by-step filing & appointment roadmap",
+        tier2Li3: "Includes written post-call summary & checklist",
+        botKicker: "Built-In Greek Immigration Knowledge Base",
+        botTitle: "Ask Greek Immigration Questions",
+        botDesc: "Type any question in English or Greek about visas, residence permits, renewals, blue certificates, family cases, students, work, or Golden Visa—or tap a topic below.",
+        botAskBtn: "Ask",
+        botDisclaimer: "Built-in informational guide covering Greek immigration topics. For a personal case evaluation or live session, complete your Case Intake below and send your summary via WhatsApp or Email.",
+        intakeKicker: "Guided Triage & Booking",
+        intakeTitle: "Case Intake, Evaluation & Online Appointment",
+        intakeDesc: "Answer 6 quick multiple-choice questions to generate your tailored case evaluation, send it to WhatsApp or Email, and book an online slot.",
+        intakePromptTag: "Step-by-Step Assessment",
+        btnPrev: "← Previous",
+        btnReset: "Reset",
+        clientDetailsTitle: "Your Contact & Profile Details",
+        lblName: "Full Name",
+        lblContact: "Your WhatsApp or Email",
+        lblNat: "Nationality & Current Country",
+        lblNotes: "Extra Case Notes (Optional)",
+        evalHeading: "Preliminary Case Evaluation & Document Focus",
+        dossierHeading: "Ready-to-Send Case Summary",
+        btnWhatsApp: "Send Case Evaluation via WhatsApp (+30 694 074 3407)",
+        btnEmail: "Send Case Evaluation via Email (Irinimoney@gmail.com)",
+        btnSchedule: "Book Online Appointment on Google Calendar",
+        calHeading: "Select Preferred Online Slot",
+        lblDate: "Preferred Date",
+        lblTime: "Preferred Time (Greece / EET)",
+        lblFormat: "Consultation Format",
+        btnConfirmCal: "Confirm & Open Google Calendar Invite",
+        btnEdit: "← Edit Choices",
+        btnNewCase: "Start New Case",
+        selectPermitBtn: "Evaluate This Pathway →",
+        chatPlaceholder: "Ask any Greek immigration question...",
+        botWelcome: "Welcome to <strong>HellasPath</strong>. Ask questions about Greek residence permits, visas, family reunification, students, long-term residence, Greek origin, Digital Nomad visas, Golden Visa, work permits, renewals, blue certificates, 7-year permits, AFM/AMKA, or citizenship."
+      },
+      el: {
+        navPermits: "Άδειες & Βίζες",
+        navAdvisor: "Ερωτήσεις & Απαντήσεις",
+        navIntake: "Αξιολόγηση Υπόθεσης",
+        navFees: "Υπηρεσίες",
+        heroEyebrow: "Γραφείο Μεταναστευτικής Υποστήριξης & Αξιολόγησης",
+        heroTitle: "Καθοδήγηση, Αξιολόγηση Φακέλου & Άδειες Διαμονής στην Ελλάδα",
+        heroSub: "Ενημερωθείτε για τις άδειες διαμονής στην Ελλάδα, δείτε απαντήσεις σε ερωτήσεις μεταναστευτικού και ολοκληρώστε την αξιολόγηση της υπόθεσής σας για επικοινωνία μέσω WhatsApp ή Email.",
+        ctaIntake: "Έναρξη Αξιολόγησης",
+        ctaBot: "Ερωτήσεις Μεταναστευτικού",
+        pill1: "Πλήρης Κάλυψη Αδειών Διαμονής",
+        permitsKicker: "Πλήρης Κάλυψη",
+        permitsTitle: "Άδειες Διαμονής & Θεωρήσεις Εισόδου (Visa)",
+        permitsDesc: "Επιλέξτε την κατηγορία που σας ενδιαφέρει για να ξεκινήσετε αμέσως την αξιολόγηση του φακέλου σας.",
+        feesKicker: "Υπηρεσίες Συμβουλευτικής",
+        feesTitle: "Κόστος Αξιολόγησης & Συνεδριών",
+        feesDesc: "Ενημερωτικός τιμοκατάλογος υπηρεσιών. Συμπληρώστε πρώτα την αξιολόγηση παρακάτω και στείλτε τα στοιχεία σας μέσω WhatsApp ή Email.",
+        tier1Badge: "Επιλογή 1 • Γραπτή Αξιολόγηση & Πλάνο",
+        tier1Unit: "/ πλήρης έλεγχος φακέλου",
+        tier1Desc: "Ιδανικό αν θέλετε γραπτή αξιολόγηση προϋποθέσεων, έλεγχο φακέλου και λίστα δικαιολογητικών πριν την αίτηση.",
+        tier1Li1: "Έλεγχος προϋποθέσεων & χρονοδιαγράμματος",
+        tier1Li2: "Εξατομικευμένη λίστα δικαιολογητικών & μεταφράσεων",
+        tier1Li3: "Αποστολή μέσω WhatsApp ή Email εντός 24–48 ωρών",
+        tier2Badge: "Επιλογή 2 • Ιδιωτική Συνεδρία 1-προς-1",
+        tier2Unit: "/ 45 λεπτά online κλήση",
+        tier2Desc: "Ιδιωτική online συνάντηση 45 λεπτών μέσω Google Meet ή WhatsApp για σύνθετες υποθέσεις, ανανεώσεις ή οικογενειακή επανένωση.",
+        tier2Li1: "45λεπτη ιδιωτική συμβουλευτική με την Ειρήνη",
+        tier2Li2: "Βήμα-βήμα πλάνο κατάθεσης & ραντεβού",
+        tier2Li3: "Περιλαμβάνει γραπτή σύνοψη & λίστα ενεργειών",
+        botKicker: "Ενσωματωμένη Βάση Ενημέρωσης Μεταναστευτικού",
+        botTitle: "Ερωτήσεις για Άδειες Διαμονής στην Ελλάδα",
+        botDesc: "Γράψτε την ερώτησή σας στα ελληνικά ή στα αγγλικά ή πατήστε ένα από τα θέματα παρακάτω.",
+        botAskBtn: "Αναζήτηση",
+        botDisclaimer: "Ενημερωτικός οδηγός βασικών κανόνων μεταναστευτικού. Για εξατομικευμένη αξιολόγηση, συμπληρώστε την Αξιολόγηση Υπόθεσης παρακάτω.",
+        intakeKicker: "Καθοδηγούμενη Αξιολόγηση & Ραντεβού",
+        intakeTitle: "Αξιολόγηση Υπόθεσης & Online Ραντεβού",
+        intakeDesc: "Απαντήστε σε 6 σύντομες ερωτήσεις πολλαπλής επιλογής για να δημιουργηθεί η σύνοψη της υπόθεσής σας.",
+        intakePromptTag: "Βήμα-προς-Βήμα Αξιολόγηση",
+        btnPrev: "← Προηγούμενο",
+        btnReset: "Επαναφορά",
+        clientDetailsTitle: "Τα Στοιχεία Επικοινωνίας σας",
+        lblName: "Ονοματεπώνυμο",
+        lblContact: "WhatsApp ή Email επικοινωνίας",
+        lblNat: "Υπηκοότητα & Χώρα Διαμονής",
+        lblNotes: "Επιπλέον Σημειώσεις (Προαιρετικό)",
+        evalHeading: "Προκαταρκτική Αξιολόγηση & Δικαιολογητικά",
+        dossierHeading: "Σύνοψη Υπόθεσης προς Αποστολή",
+        btnWhatsApp: "Αποστολή μέσω WhatsApp (+30 694 074 3407)",
+        btnEmail: "Αποστολή μέσω Email (Irinimoney@gmail.com)",
+        btnSchedule: "Κλείσιμο Online Ραντεβού στο Google Calendar",
+        calHeading: "Επιλογή Ημερομηνίας & Ώρας",
+        lblDate: "Προτιμώμενη Ημερομηνία",
+        lblTime: "Προτιμώμενη Ώρα Ελλάδας",
+        lblFormat: "Τρόπος Επικοινωνίας",
+        btnConfirmCal: "Επιβεβαίωση & Άνοιγμα Google Calendar",
+        btnEdit: "← Αλλαγή Απαντήσεων",
+        btnNewCase: "Νέα Υπόθεση",
+        selectPermitBtn: "Αξιολόγηση Κατηγορίας →",
+        chatPlaceholder: "Γράψτε την ερώτησή σας για άδειες διαμονής...",
+        botWelcome: "Καλώς ήρθατε στο <strong>HellasPath</strong>. Ρωτήστε για άδειες διαμονής στην Ελλάδα, οικογενειακή επανένωση, φοιτητές, επί μακρόν διαμένοντες, ομογενείς, Digital Nomad, Golden Visa, εργασία, ανανεώσεις, μπλε βεβαίωση, 7ετία, ΑΦΜ/ΑΜΚΑ ή ιθαγένεια."
+      }
+    };
+
+    const permitCatalog = [
+      {
+        id: "Greek / EU Family Member Residence",
+        enTitle: "Greek / EU Family Member Residence",
+        elTitle: "Άδεια Διαμονής Μέλους Οικογένειας Έλληνα / Πολίτη ΕΕ",
+        enDesc: "For spouses, registered partners, children, or dependent relatives of Greek or EU citizens residing in Greece.",
+        elDesc: "Για συζύγους, συντρόφους με σύμφωνο συμβίωσης, τέκνα ή συντηρούμενους συγγενείς Ελλήνων ή πολιτών ΕΕ."
+      },
+      {
+        id: "Visa & Residence Permit for Students",
+        enTitle: "Visa & Residence Permit for Students",
+        elTitle: "Φοιτητική Βίζα & Άδεια Διαμονής Σπουδών",
+        enDesc: "National D-visa entry, university enrollment residence permits, renewals, and post-study options.",
+        elDesc: "Εθνική θεώρηση D, άδεια διαμονής για σπουδές, ανανεώσεις και μεταβατικές επιλογές μετά τις σπουδές."
+      },
+      {
+        id: "EU Long-Term Residence Permit (Students)",
+        enTitle: "EU Long-Term Residence Permit (Students)",
+        elTitle: "Άδεια Επί Μακρόν Διαμένοντος ΕΕ (Φοιτητές / 5ετία)",
+        enDesc: "Transitioning after 5 years of lawful residence in Greece, including rules on how student residence periods count.",
+        elDesc: "Μετάβαση μετά από 5 έτη νόμιμης διαμονής στην Ελλάδα και υπολογισμός των ετών φοιτητικής άδειας."
+      },
+      {
+        id: "Greek Origin Residence Permit",
+        enTitle: "Greek Origin Residence Permit (Omogeneis)",
+        elTitle: "Άδεια Διαμονής Ομογενών (Ελληνικής Καταγωγής)",
+        enDesc: "Residence permits and Special Identity Cards (ΕΔΤΟ) for individuals of Greek descent and their family members.",
+        elDesc: "Άδειες διαμονής και ΕΔΤΟ για ομογενείς ελληνικής καταγωγής και τα μέλη της οικογένειάς τους."
+      },
+      {
+        id: "Work & Employment Residence Permit",
+        enTitle: "Work & Employment Residence Permit",
+        elTitle: "Άδεια Διαμονής για Εργασία & Μετάκληση",
+        enDesc: "Employer-sponsored work permits (μετάκληση), EU Blue Card for skilled professionals, and employment rules.",
+        elDesc: "Άδειες εξαρτημένης εργασίας, μετάκληση εργαζομένων και Μπλε Κάρτα ΕΕ για εξειδικευμένους επαγγελματίες."
+      },
+      {
+        id: "Digital Nomad Visa & Residence Permit",
+        enTitle: "Digital Nomad Visa & Residence Permit",
+        elTitle: "Digital Nomad Visa & Άδεια Διαμονής",
+        enDesc: "For remote workers and freelancers employed outside Greece meeting the €3,500/month net income threshold.",
+        elDesc: "Για εργαζόμενους εξ αποστάσεως με εργοδότη εκτός Ελλάδας και καθαρό εισόδημα από 3.500€/μήνα."
+      },
+      {
+        id: "Financially Independent Person (FIP)",
+        enTitle: "Financially Independent Person (FIP)",
+        elTitle: "Άδεια Οικονομικά Ανεξάρτητου Ατόμου (FIP)",
+        enDesc: "Non-working residence permit for retirees and individuals with stable passive income (from €3,500/month).",
+        elDesc: "Άδεια διαμονής χωρίς δικαίωμα εργασίας για συνταξιούχους και άτομα με σταθερά εισοδήματα (από 3.500€/μήνα)."
+      },
+      {
+        id: "Golden Visa (Real Estate & Investment)",
+        enTitle: "Golden Visa (Investment Residence)",
+        elTitle: "Golden Visa (Επενδυτική Άδεια Διαμονής)",
+        enDesc: "5-year renewable residence permit via qualifying real estate or investment under current regional thresholds.",
+        elDesc: "5ετής ανανεώσιμη άδεια διαμονής μέσω επένδυσης σε ακίνητα με βάση τα ισχύοντα όρια ανά περιοχή."
+      },
+      {
+        id: "Citizenship, Renewals & Special Cases",
+        enTitle: "Citizenship, Renewals & Exceptional Cases",
+        elTitle: "Ιθαγένεια, Ανανεώσεις & Ειδικές Περιπτώσεις",
+        enDesc: "Naturalization, 7-year exceptional residence permits, delayed blue certificate (βεβαίωση) follow-ups, and renewals.",
+        elDesc: "Πολιτογράφηση, άδεια 7ετίας (εξαιρετικοί λόγοι), καθυστερήσεις μπλε βεβαίωσης και ανανεώσεις."
+      }
+    ];
+
+    const questionsData = [
+      {
+        key: "pathway",
+        enQ: "Which Greek residence permit or visa pathway applies to you?",
+        elQ: "Ποια κατηγορία άδειας διαμονής ή βίζας σας αφορά;",
+        options: permitCatalog.map((p) => p.id)
+      },
+      {
+        key: "years",
+        enQ: "For how long have you been living in Greece?",
+        elQ: "Πόσο καιρό διαμένετε στην Ελλάδα;",
+        options: [
+          "Not living in Greece yet",
+          "Less than 1 year",
+          "1 to 3 years",
+          "3 to 5 years",
+          "5 to 7 years",
+          "7+ years"
+        ]
+      },
+      {
+        key: "status",
+        enQ: "What is your current legal status right now?",
+        elQ: "Ποιο είναι το τρέχον νόμιμο καθεστώς σας;",
+        options: [
+          "Outside Greece (preparing visa or initial application)",
+          "In Greece on tourist / Schengen stay",
+          "Valid Greek residence permit",
+          "Waiting on renewal / initial receipt (Blue Certificate / Βεβαίωση)",
+          "Permit expired, rejected, or urgent situation"
+        ]
+      },
+      {
+        key: "applicants",
+        enQ: "Who is included in this application?",
+        elQ: "Ποιοι περιλαμβάνονται στην αίτηση;",
+        options: [
+          "Just me (Solo applicant)",
+          "Me and my spouse / partner",
+          "Me and my child / children",
+          "Full family group"
+        ]
+      },
+      {
+        key: "timeline",
+        enQ: "When do you plan to submit or take action?",
+        elQ: "Πότε σκοπεύετε να προχωρήσετε;",
+        options: [
+          "Immediately / within 30 days",
+          "Within 1 to 3 months",
+          "Within 3 to 6 months",
+          "Just evaluating my eligibility first"
+        ]
+      },
+      {
+        key: "serviceType",
+        enQ: "Which consultation option do you prefer?",
+        elQ: "Ποια επιλογή συμβουλευτικής προτιμάτε;",
+        options: [
+          "Written Case Evaluation & Document Roadmap (€55)",
+          "Private 45-Min Online Consultation (€85)",
+          "Not sure yet — send my summary first"
+        ]
+      }
+    ];
+
+    const knowledgeBase = [
+      {
+        keys: ["family", "spouse", "wife", "husband", "partner", "marriage", "cohabitation", "child", "children", "οικογενεια", "συζυγος", "συμφωνο", "παιδι", "τεκνα"],
+        en: "<strong>Greek / EU Family Member Residence:</strong> Spouses, registered partners (σύμφωνο συμβίωσης), minor children, and dependent relatives of Greek or EU citizens can apply inside Greece if they entered lawfully. Typical requirements include an apostilled/legalized marriage or family certificate translated into Greek, sponsor proof, address proof, and health insurance.",
+        el: "<strong>Άδεια Διαμονής Μέλους Οικογένειας Έλληνα / Πολίτη ΕΕ:</strong> Σύζυγοι, σύντροφοι με σύμφωνο συμβίωσης, ανήλικα τέκνα και συντηρούμενοι συγγενείς Ελλήνων ή πολιτών ΕΕ μπορούν να αιτηθούν στην Ελλάδα εφόσον εισήλθαν νόμιμα, με πιστοποιητικό με Apostille και επίσημη μετάφραση, στοιχεία χορηγού, κατοικίας και ασφάλισης."
+      },
+      {
+        keys: ["student", "university", "college", "study", "d visa", "φοιτητ", "σπουδ", "πανεπιστημιο", "κολλεγιο"],
+        en: "<strong>Visa & Residence Permit for Students:</strong> Non-EU students generally obtain a National Type-D Visa from a Greek consulate first using university admission/enrollment proof, financial means, clean criminal record, and medical certificate, then apply electronically in Greece for their residence permit.",
+        el: "<strong>Φοιτητική Βίζα & Άδεια Διαμονής:</strong> Απαιτείται αρχικά Εθνική Θεώρηση Εισόδου (Type D) από προξενείο με αποδοχή/εγγραφή, πόρους, ποινικό μητρώο και ιατρικό πιστοποιητικό, και στη συνέχεια ηλεκτρονική αίτηση άδειας διαμονής στην Ελλάδα."
+      },
+      {
+        keys: ["long-term", "long term", "5 years", "five years", "permanent", "επι μακρον", "5ετια", "πενταετια", "μονιμη"],
+        en: "<strong>EU Long-Term Residence Permit (including Students):</strong> Requires 5 years of continuous lawful residence in Greece, stable income, health insurance, and Greek language/civics integration. Years held strictly on a student permit count at <strong>50% (half)</strong> toward the 5-year requirement.",
+        el: "<strong>Άδεια Επί Μακρόν Διαμένοντος ΕΕ (και Φοιτητές):</strong> Απαιτεί 5 έτη συνεχούς νόμιμης διαμονής, σταθερό εισόδημα, ασφάλιση και ελληνομάθεια/ιστορία. Τα έτη φοιτητικής άδειας υπολογίζονται στο <strong>50% (μισά)</strong>."
+      },
+      {
+        keys: ["origin", "omogeneis", "ancestry", "descent", "edto", "heritage", "ομογεν", "καταγωγ", "εδτο"],
+        en: "<strong>Greek Origin Residence Permit (Omogeneis):</strong> Individuals of Greek descent can apply for a Greek Origin Residence Permit or Special Identity Card (ΕΔΤΟ) using official records proving Greek ancestry along with civil status and clean criminal record documents.",
+        el: "<strong>Άδεια Διαμονής Ομογενών:</strong> Παρέχεται σε άτομα ελληνικής καταγωγής με επίσημα πιστοποιητικά καταγωγής, οικογενειακής κατάστασης και ποινικό μητρώο."
+      },
+      {
+        keys: ["digital nomad", "remote", "freelance", "3500", "νομαντ", "τηλεργασια", "εξ αποστασεως"],
+        en: "<strong>Digital Nomad Visa & Residence Permit:</strong> For remote workers and freelancers employed outside Greece with at least <strong>€3,500/month</strong> net income (+20% for a spouse, +15% per child), remote employment/client contracts, and health insurance.",
+        el: "<strong>Digital Nomad Visa & Άδεια Διαμονής:</strong> Για απομακρυσμένη εργασία εκτός Ελλάδας με καθαρό εισόδημα τουλάχιστον <strong>3.500€/μήνα</strong> (+20% σύζυγος, +15% τέκνο)."
+      },
+      {
+        keys: ["golden visa", "investment", "real estate", "property", "250000", "400000", "800000", "επενδυση", "ακινητο"],
+        en: "<strong>Greek Golden Visa:</strong> Grants a 5-year renewable residence permit with family inclusion. Real estate thresholds are <strong>€800,000</strong> in Attica, Thessaloniki, Mykonos, Santorini, and islands over 3,100 residents; <strong>€400,000</strong> elsewhere (≥120 sq.m. single property); and <strong>€250,000</strong> for commercial-to-residential conversions or listed building restorations.",
+        el: "<strong>Golden Visa Ελλάδας:</strong> 5ετής άδεια με μέλη οικογένειας. Τα όρια σε ακίνητα είναι <strong>800.000€</strong> (Αττική, Θεσσαλονίκη, Μύκονος, Σαντορίνη, νησιά >3.100 κατοίκων), <strong>400.000€</strong> στην υπόλοιπη Ελλάδα (≥120 τ.μ.) και <strong>250.000€</strong> για μετατροπή επαγγελματικού χώρου ή διατηρητέα."
+      },
+      {
+        keys: ["fip", "financially independent", "retiree", "pension", "passive", "ανεξαρτητ", "συνταξιουχ", "συνταξη"],
+        en: "<strong>Financially Independent Person (FIP):</strong> Non-working residence permit for retirees and individuals with stable passive income of at least <strong>€3,500/month</strong> (+20% spouse, +15% per child) and a National Type-D Visa.",
+        el: "<strong>Οικονομικά Ανεξάρτητα Άτομα (FIP):</strong> Άδεια χωρίς δικαίωμα εργασίας με σταθερά παθητικά εισοδήματα από <strong>3.500€/μήνα</strong> (+20% σύζυγος, +15% τέκνο) και εθνική βίζα D."
+      },
+      {
+        keys: ["work", "job", "employer", "metaklisi", "blue card", "employment", "εργασια", "μετακληση", "μπλε καρτα", "δουλεια"],
+        en: "<strong>Work & Employment Permits:</strong> Non-EU nationals generally apply through employer sponsorship (<em>μετάκληση</em>) or the <strong>EU Blue Card</strong> for skilled university graduates with a qualifying job offer and salary level.",
+        el: "<strong>Άδειες Εργασίας & Μετάκληση:</strong> Γίνεται μέσω αίτησης εργοδότη (μετάκληση) ή μέσω της <strong>Μπλε Κάρτας ΕΕ</strong> για πτυχιούχους υψηλής εξειδίκευσης με σχετική σύμβαση εργασίας."
+      },
+      {
+        keys: ["blue certificate", "vevaiosi", "receipt", "renewal", "renew", "expired", "delay", "travel", "βεβαιωση", "μπλε", "ανανεωση", "ληξη", "ταξιδι"],
+        en: "<strong>Blue Certificate (Βεβαίωση Κατάθεσης) & Renewals:</strong> Filing a timely renewal or application electronically generates a Blue Certificate allowing lawful stay and work in Greece while waiting for the card. Travel is generally permitted directly to and from your home country (avoiding transit via other Schengen countries unless holding a valid visa/permit).",
+        el: "<strong>Μπλε Βεβαίωση (Βεβαίωση Κατάθεσης) & Ανανεώσεις:</strong> Με την εμπρόθεσμη ηλεκτρονική αίτηση εκδίδεται η Μπλε Βεβαίωση για νόμιμη διαμονή και εργασία μέχρι την έκδοση της κάρτας, με ταξίδια απευθείας προς/από τη χώρα καταγωγής σας."
+      },
+      {
+        keys: ["7 years", "seven years", "exceptional", "εξαιρετικ", "7ετια", "επταετια"],
+        en: "<strong>7-Year Exceptional Reasons Permit (Άδεια για Εξαιρετικούς Λόγους):</strong> Applicants who can document at least <strong>7 years</strong> of continuous stay in Greece with official/dated records for each year may qualify for an exceptional-reasons residence permit.",
+        el: "<strong>Άδεια Διαμονής για Εξαιρετικούς Λόγους (7ετία):</strong> Αφορά άτομα με τεκμηριωμένη συνεχή παρουσία τουλάχιστον <strong>7 ετών</strong> στην Ελλάδα με επίσημα έγγραφα ανά έτος."
+      },
+      {
+        keys: ["citizenship", "naturalization", "passport", "ιθαγενεια", "πολιτογραφηση", "διαβατηριο"],
+        en: "<strong>Greek Citizenship / Naturalization:</strong> Typically requires 7 years of continuous lawful residence (3 years for spouses of Greek citizens with a child, or EU citizens), a qualifying long-term/permanent permit, passing the Greek language & civics exam (ΠΕΓΠ), and integration proof.",
+        el: "<strong>Ελληνική Ιθαγένεια / Πολιτογράφηση:</strong> Απαιτεί συνήθως 7 έτη συνεχούς νόμιμης διαμονής (3 έτη για συζύγους Ελλήνων με τέκνο ή πολίτες ΕΕ), κατάλληλη άδεια, εξετάσεις ΠΕΓΠ και ένταξη."
+      },
+      {
+        keys: ["afm", "amka", "tax", "bank", "iban", "αφμ", "αμκα", "φορολογικ", "τραπεζα"],
+        en: "<strong>AFM (Tax Number) & AMKA (Social Security):</strong> An <strong>AFM</strong> is issued via the tax authority (AADE / myAADE) with passport and Greek address/tax representative details. <strong>AMKA</strong> is issued at KEP or EFKA once you have an eligible residence permit, blue certificate, or qualifying registration.",
+        el: "<strong>ΑΦΜ & ΑΜΚΑ:</strong> Το <strong>ΑΦΜ</strong> εκδίδεται μέσω ΑΑΔΕ (myAADE) με διαβατήριο και διεύθυνση/εκπρόσωπο. Το <strong>ΑΜΚΑ</strong> εκδίδεται σε ΚΕΠ ή ΕΦΚΑ με ισχύουσα άδεια, μπλε βεβαίωση ή σχετική εγγραφή."
+      },
+      {
+        keys: ["cost", "fee", "price", "euro", "book", "appointment", "whatsapp", "email", "κοστος", "τιμη", "ευρω", "ραντεβου"],
+        en: "<strong>Consultation Rates & Contact:</strong> Written Case Evaluation & Document Roadmap is <strong>€55</strong>, and a Private 45-Minute Online Consultation is <strong>€85</strong>. Complete the Case Intake below and send your summary to <strong>+30 694 074 3407</strong> on WhatsApp or <strong>Irinimoney@gmail.com</strong>.",
+        el: "<strong>Κόστος & Επικοινωνία:</strong> Η Γραπτή Αξιολόγηση Φακέλου & Λίστα Δικαιολογητικών είναι <strong>55€</strong> και η Ιδιωτική Online Συνεδρία 45 λεπτών είναι <strong>85€</strong>. Συμπληρώστε την αξιολόγηση παρακάτω και στείλτε τα στοιχεία σας στο <strong>+30 694 074 3407</strong> ή στο <strong>Irinimoney@gmail.com</strong>."
+      }
+    ];
+
+    const quickChipTopics = {
+      en: [
+        "Greek / EU Family Member Residence",
+        "Student Visa & Permit",
+        "EU Long-Term Permit (50% Student Rule)",
+        "Digital Nomad Visa (€3,500)",
+        "Golden Visa Thresholds",
+        "Blue Certificate (Βεβαίωση) & Travel",
+        "7-Year Exceptional Permit",
+        "Consultation Rates (€55 / €85)"
+      ],
+      el: [
+        "Άδεια Οικογένειας Έλληνα / ΕΕ",
+        "Φοιτητική Άδεια Διαμονής",
+        "Επί Μακρόν Διαμένων (50% Φοιτητών)",
+        "Digital Nomad Visa",
+        "Όρια Golden Visa",
+        "Μπλε Βεβαίωση & Ταξίδια",
+        "Άδεια 7ετίας",
+        "Κόστος Υπηρεσιών (55€ / 85€)"
+      ]
+    };
+
+    const btnEn = document.getElementById("btnEn");
+    const btnEl = document.getElementById("btnEl");
+    const permitsGrid = document.getElementById("permitsGrid");
+    const botChips = document.getElementById("botChips");
+    const chatBox = document.getElementById("chatBox");
+    const chatForm = document.getElementById("chatForm");
+    const chatInput = document.getElementById("chatInput");
+
+    const intakeQuestionsView = document.getElementById("intakeQuestionsView");
+    const intakeResultView = document.getElementById("intakeResultView");
+    const stepText = document.getElementById("stepText");
+    const pctText = document.getElementById("pctText");
+    const progressBar = document.getElementById("progressBar");
+    const questionTitle = document.getElementById("questionTitle");
+    const optionsGrid = document.getElementById("optionsGrid");
+    const prevBtn = document.getElementById("prevBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    const cName = document.getElementById("cName");
+    const cContact = document.getElementById("cContact");
+    const cNat = document.getElementById("cNat");
+    const cNotes = document.getElementById("cNotes");
+    const evalList = document.getElementById("evalList");
+    const dossierPaper = document.getElementById("dossierPaper");
+    const waSendBtn = document.getElementById("waSendBtn");
+    const mailSendBtn = document.getElementById("mailSendBtn");
+    const toggleCalBtn = document.getElementById("toggleCalBtn");
+    const calBox = document.getElementById("calBox");
+    const calDate = document.getElementById("calDate");
+    const calTime = document.getElementById("calTime");
+    const calChannel = document.getElementById("calChannel");
+    const gcalOpenBtn = document.getElementById("gcalOpenBtn");
+    const backToEditBtn = document.getElementById("backToEditBtn");
+    const newCaseBtn = document.getElementById("newCaseBtn");
+
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    calDate.value = tomorrow.toISOString().split("T")[0];
+
+    function applyTranslations() {
+      const dict = i18n[currentLang];
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) {
+          el.textContent = dict[key];
+        }
+      });
+      chatInput.placeholder = dict.chatPlaceholder;
+      btnEn.classList.toggle("active", currentLang === "en");
+      btnEl.classList.toggle("active", currentLang === "el");
+      renderPermits();
+      renderBotChips();
+      renderQuestion();
+      if (!intakeResultView.classList.contains("hidden")) {
+        updateDossier();
+      }
+    }
+
+    function renderPermits() {
+      permitsGrid.innerHTML = "";
+      permitCatalog.forEach((p) => {
+        const card = document.createElement("div");
+        card.className = "permit-item";
+        const title = currentLang === "el" ? p.elTitle : p.enTitle;
+        const desc = currentLang === "el" ? p.elDesc : p.enDesc;
+        card.innerHTML = `
+          <div>
+            <h3 class="permit-title">${title}</h3>
+            <p class="permit-text">${desc}</p>
+          </div>
+          <button type="button" class="permit-action">${i18n[currentLang].selectPermitBtn}</button>
+        `;
+        card.querySelector("button").addEventListener("click", () => {
+          answers.pathway = p.id;
+          step = 1;
+          intakeResultView.classList.add("hidden");
+          intakeQuestionsView.classList.remove("hidden");
+          renderQuestion();
+          document.getElementById("intake").scrollIntoView({ behavior: "smooth" });
+        });
+        permitsGrid.appendChild(card);
+      });
+    }
+
+    function renderBotChips() {
+      botChips.innerHTML = "";
+      quickChipTopics[currentLang].forEach((topic) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip";
+        chip.textContent = topic;
+        chip.addEventListener("click", () => handleUserQuestion(topic));
+        botChips.appendChild(chip);
+      });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function addChatMessage(sender, html, isUser) {
+      const div = document.createElement("div");
+      div.className = "msg " + (isUser ? "msg-user" : "msg-bot");
+      div.innerHTML = `<div class="msg-sender">${sender}</div><div>${html}</div>`;
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function searchLocalKnowledge(query) {
+      const q = query.toLowerCase();
+      let bestMatch = null;
+      let highestScore = 0;
+
+      knowledgeBase.forEach((item) => {
+        let score = 0;
+        item.keys.forEach((k) => {
+          if (q.includes(k)) score += 1;
+        });
+        if (score > highestScore) {
+          highestScore = score;
+          bestMatch = item;
+        }
+      });
+
+      if (bestMatch) {
+        return currentLang === "el" ? bestMatch.el : bestMatch.en;
+      }
+
+      return currentLang === "el"
+        ? "Για εξατομικευμένη απάντηση στη συγκεκριμένη περίπτωσή σας, συμπληρώστε την <strong>Αξιολόγηση Υπόθεσης</strong> παρακάτω (Γραπτή Αξιολόγηση & Πλάνο 55€ ή Ιδιωτική Συνεδρία 45 λεπτών 85€) και στείλτε τα στοιχεία σας στο WhatsApp (<strong>+30 694 074 3407</strong>) ή στο Email (<strong>Irinimoney@gmail.com</strong>)."
+        : "For a tailored answer on your exact situation, complete the <strong>Case Intake</strong> below (Written Case Evaluation & Document Roadmap €55 or Private 45-Minute Online Consultation €85) and send your summary via WhatsApp (<strong>+30 694 074 3407</strong>) or Email (<strong>Irinimoney@gmail.com</strong>).";
+    }
+
+    function handleUserQuestion(rawText) {
+      const clean = rawText.trim();
+      if (!clean) return;
+      addChatMessage(currentLang === "el" ? "Εσείς" : "You", escapeHtml(clean), true);
+      const reply = searchLocalKnowledge(clean);
+      addChatMessage("HellasPath Guide", reply, false);
+    }
+
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      handleUserQuestion(chatInput.value);
+      chatInput.value = "";
+    });
+
+    function renderQuestion() {
+      const q = questionsData[step];
+      const pct = Math.round(((step + 1) / questionsData.length) * 100);
+      stepText.textContent = currentLang === "el"
+        ? `Ερώτηση ${step + 1} από ${questionsData.length}`
+        : `Question ${step + 1} of ${questionsData.length}`;
+      pctText.textContent = `${pct}%`;
+      progressBar.style.width = `${pct}%`;
+      questionTitle.textContent = currentLang === "el" ? q.elQ : q.enQ;
+
+      prevBtn.disabled = step === 0;
+      prevBtn.style.opacity = step === 0 ? "0.45" : "1";
+
+      optionsGrid.innerHTML = "";
+      q.options.forEach((opt) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "opt-btn" + (answers[q.key] === opt ? " selected" : "");
+        btn.textContent = opt;
+        btn.addEventListener("click", () => {
+          answers[q.key] = opt;
+          if (step < questionsData.length - 1) {
+            step += 1;
+            renderQuestion();
+          } else {
+            showDossier();
+          }
+        });
+        optionsGrid.appendChild(btn);
+      });
+    }
+
+    function generateEvaluation() {
+      const p = answers.pathway || "";
+      const y = answers.years || "";
+      const s = answers.status || "";
+      const a = answers.applicants || "";
+      const t = answers.timeline || "";
+      const list = [];
+
+      if (p.includes("Family")) {
+        list.push("Pathway Focus: Greek/EU family member eligibility, civil/marriage certificate Apostille & Greek translation, and sponsor residency verification.");
+      } else if (p.includes("Long-Term")) {
+        list.push("Pathway Focus: 5-year lawful residence audit (note: student permit years count at 50%), income stability, health insurance, and Greek language/civics requirement.");
+      } else if (p.includes("Student")) {
+        list.push("Pathway Focus: Type-D student visa or electronic renewal timing, active university enrollment certificate, financial means, and health coverage.");
+      } else if (p.includes("Origin")) {
+        list.push("Pathway Focus: Official Greek ancestry/lineage records (municipal/church/consular), family chain certificates, and clean criminal record.");
+      } else if (p.includes("Digital Nomad")) {
+        list.push("Pathway Focus: Remote employment/client contracts outside Greece and €3,500/month net income verification (+20% spouse, +15% per child).");
+      } else if (p.includes("Golden Visa")) {
+        list.push("Pathway Focus: Qualifying property investment threshold (€250k / €400k / €800k by region), clean fund transfer trail, and family member inclusion.");
+      } else if (p.includes("Financially Independent")) {
+        list.push("Pathway Focus: Stable passive income of at least €3,500/month (+20% spouse, +15% per child) and National Type-D Visa requirement.");
+      } else if (p.includes("Work")) {
+        list.push("Pathway Focus: Employer sponsorship (μετάκληση) or EU Blue Card qualification, employment contract terms, and consular visa step.");
+      } else {
+        list.push("Pathway Focus: Comprehensive review of stay history (including 7-year exceptional residence or naturalization eligibility) and pending application status.");
+      }
+
+      if (y) {
+        list.push(`Residence Duration (${y}): Stay continuity and absence limits will be checked against statutory requirements.`);
+      }
+
+      if (s.includes("expired") || s.includes("urgent") || t.includes("Immediately")) {
+        list.push("Priority Flag: Urgent timeline or status requires immediate deadline and lawful-stay protection review.");
+      } else if (s.includes("Blue Certificate")) {
+        list.push("Pending Application (Βεβαίωση): We will verify filing completeness and travel/work rights while awaiting card issuance.");
+      }
+
+      if (a && !a.includes("Just me")) {
+        list.push(`Family Coordination (${a}): Dependent documentation, apostilles, and separate fee/appointment requirements apply.`);
+      }
+
+      return list;
+    }
+
+    function buildDossierText() {
+      const name = cName.value.trim() || "Not provided";
+      const contact = cContact.value.trim() || "Not provided";
+      const nat = cNat.value.trim() || "Not provided";
+      const notes = cNotes.value.trim() || "None";
+      const evalLines = generateEvaluation().map((item) => `- ${item}`).join("\n");
+
+      return [
+        "HELLASPATH — GREEK IMMIGRATION CASE EVALUATION",
+        "==============================================",
+        "CLIENT PROFILE",
+        `Full Name: ${name}`,
+        `Contact (WhatsApp/Email): ${contact}`,
+        `Nationality & Country: ${nat}`,
+        `Additional Notes: ${notes}`,
+        "",
+        "CASE ASSESSMENT",
+        `Pathway: ${answers.pathway || "-"}`,
+        `Time in Greece: ${answers.years || "-"}`,
+        `Current Status: ${answers.status || "-"}`,
+        `Applicants: ${answers.applicants || "-"}`,
+        `Target Timeline: ${answers.timeline || "-"}`,
+        `Preferred Service: ${answers.serviceType || "-"}`,
+        "",
+        "PRELIMINARY EVALUATION & CHECKLIST",
+        evalLines,
+        "",
+        `HellasPath Desk | WhatsApp: ${CONSULTANT_PHONE} | Email: ${CONSULTANT_EMAIL}`
+      ].join("\n");
+    }
+
+    function toGCalDate(d) {
+      const pad = (n) => String(n).padStart(2, "0");
+      return (
+        d.getUTCFullYear() +
+        pad(d.getUTCMonth() + 1) +
+        pad(d.getUTCDate()) +
+        "T" +
+        pad(d.getUTCHours()) +
+        pad(d.getUTCMinutes()) +
+        pad(d.getUTCSeconds()) +
+        "Z"
+      );
+    }
+
+    function updateDossier() {
+      const points = generateEvaluation();
+      evalList.innerHTML = "";
+      points.forEach((pt) => {
+        const li = document.createElement("li");
+        li.textContent = pt;
+        evalList.appendChild(li);
+      });
+
+      const dossier = buildDossierText();
+      dossierPaper.textContent = dossier;
+
+      const name = cName.value.trim() || "Client";
+      const pathway = answers.pathway || "Greek Immigration";
+
+      waSendBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(dossier)}`;
+
+      const subject = `HellasPath Case Evaluation — ${name} (${pathway})`;
+      mailSendBtn.href = `mailto:${CONSULTANT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(dossier)}`;
+
+      const dStr = calDate.value;
+      const tStr = calTime.value || "11:00";
+      let start;
+      if (dStr) {
+        const [yy, mm, dd] = dStr.split("-").map(Number);
+        const [hh, min] = tStr.split(":").map(Number);
+        start = new Date(yy, mm - 1, dd, hh || 11, min || 0, 0);
+      } else {
+        start = new Date(Date.now() + 86400000);
+      }
+      const end = new Date(start.getTime() + 45 * 60000);
+
+      const calParams = new URLSearchParams({
+        action: "TEMPLATE",
+        text: `HellasPath Consultation (€85 / 45m) — ${name} (${pathway})`,
+        dates: `${toGCalDate(start)}/${toGCalDate(end)}`,
+        details: dossier,
+        location: calChannel.value,
+        add: CONSULTANT_EMAIL
+      });
+
+      gcalOpenBtn.href = `https://calendar.google.com/calendar/render?${calParams.toString()}`;
+    }
+
+    function showDossier() {
+      intakeQuestionsView.classList.add("hidden");
+      intakeResultView.classList.remove("hidden");
+      updateDossier();
+    }
+
+    function resetIntake() {
+      step = 0;
+      Object.keys(answers).forEach((k) => delete answers[k]);
+      cName.value = "";
+      cContact.value = "";
+      cNat.value = "";
+      cNotes.value = "";
+      calBox.classList.add("hidden");
+      intakeResultView.classList.add("hidden");
+      intakeQuestionsView.classList.remove("hidden");
+      renderQuestion();
+    }
+
+    btnEn.addEventListener("click", () => {
+      currentLang = "en";
+      applyTranslations();
+    });
+
+    btnEl.addEventListener("click", () => {
+      currentLang = "el";
+      applyTranslations();
+    });
+
+    prevBtn.addEventListener("click", () => {
+      if (step > 0) {
+        step -= 1;
+        renderQuestion();
+      }
+    });
+
+    resetBtn.addEventListener("click", resetIntake);
+    newCaseBtn.addEventListener("click", resetIntake);
+
+    backToEditBtn.addEventListener("click", () => {
+      intakeResultView.classList.add("hidden");
+      intakeQuestionsView.classList.remove("hidden");
+      renderQuestion();
+    });
+
+    toggleCalBtn.addEventListener("click", () => {
+      calBox.classList.toggle("hidden");
+      updateDossier();
+    });
+
+    [cName, cContact, cNat, cNotes, calDate, calTime, calChannel].forEach((el) => {
+      el.addEventListener("input", updateDossier);
+      el.addEventListener("change", updateDossier);
+    });
+
+    applyTranslations();
+    addChatMessage("HellasPath Guide", i18n[currentLang].botWelcome, false);
+  </script>
+</body>
+</html>
